@@ -1,0 +1,17 @@
+	%Trajectory
+
+	x = cos(t) + 2;
+	y = sin(t) + 1;
+	z = 4;
+
+	dx = -sin(t);
+	dy = cos(t);
+	dz = 0;
+
+	ddx = -cos(t);
+	ddy = -sin(t);
+	ddz = 0;
+
+	X = [x;y;z];
+	dX=[dx;dy;dz];
+	ddX = [ddx;ddy;ddz];
