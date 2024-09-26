@@ -1,52 +1,10 @@
-import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+import numpy as np
+import controller
+import dynamic
+from system_parameters import *
 
-# System Parameters
-m1, m2 = 1.0, 1.0
-l1, l2 = 1.0, 1.0
-g = 9.81
-theta_d1, theta_d2 = np.pi / 2, np.pi / 2  # Desired angles
-lambda1, lambda2 = 15, 15
-K1, K2 = 100, 60
-
-# Dynamics function
-def dynamics(theta, theta_dot, tau):
-    A1 = (m1 + m2) * l1**2
-    A2 = m2 * l1 * l2 * np.cos(theta[0] - theta[1])
-    A3 = m2 * l1 * l2 * np.sin(theta[0] - theta[1])
-    A4 = (m1 + m2) * g * l1 * np.sin(theta[0])
-    A1_prime = m2 * l2**2
-    A4_prime = m2 * g * l2 * np.sin(theta[1])
-    
-    M = np.array([[A1, A2], [A2, A1_prime]])
-    C = np.array([[0, A3 * theta_dot[1]], [-A3 * theta_dot[0], 0]])
-    G = np.array([A4, A4_prime])
-    
-    theta_ddot = np.linalg.inv(M) @ (tau - C @ theta_dot - G)
-    return theta_ddot
-
-# Control law
-def sliding_mode_control(theta, theta_dot, theta_d):
-    # Tracking error
-    e = theta - theta_d
-    e_dot = theta_dot
-    
-    # Sliding surfaces
-    S1 = e_dot[0] + lambda1 * e[0]
-    S2 = e_dot[1] + lambda2 * e[1]
-    
-    # Calculate M matrix (inertia matrix)
-    A1 = (m1 + m2) * l1**2
-    A2 = m2 * l1 * l2 * np.cos(theta[0] - theta[1])
-    A1_prime = m2 * l2**2
-    M = np.array([[A1, A2], [A2, A1_prime]])
-
-    # Control law
-    tau1 = M[0, 0] * (0 - lambda1 * e_dot[0]) - K1 * np.sign(S1)
-    tau2 = M[1, 1] * (0 - lambda2 * e_dot[1]) - K2 * np.sign(S2)
-    
-    return np.array([tau1, tau2]), S1, S2
 
 # Simulation function
 def simulate_smc(initial_state, time_span, dt=0.01):
@@ -58,8 +16,8 @@ def simulate_smc(initial_state, time_span, dt=0.01):
     for step in range(n_steps):
         theta = state[:2]
         theta_dot = state[2:]
-        tau, S1, S2 = sliding_mode_control(theta, theta_dot, np.array([theta_d1, theta_d2]))
-        theta_ddot = dynamics(theta, theta_dot, tau)
+        tau, S1, S2 = controller.sliding_mode_control(theta, theta_dot, np.array([theta_d1, theta_d2]))
+        theta_ddot = dynamic.dynamics(theta, theta_dot, tau)
         theta_dot_next = theta_dot + theta_ddot * dt
         theta_next = theta + theta_dot * dt
         state = np.concatenate([theta_next, theta_dot_next])
