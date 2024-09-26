@@ -106,6 +106,46 @@ def update(frame):
 # Create animation
 ani = FuncAnimation(fig, update, frames=len(theta1_vals), init_func=init, blit=True, interval=50)
 
-# Show animation
+
+
+
+
+
+# Time vector
+time = np.linspace(0, 10, len(theta1_vals))
+
+# Plot angles (θ1, θ2)
+plt.figure(figsize=(8, 6))
+plt.plot(time, theta1_vals, label=r'$\theta_1$ (actual)', color='b')
+plt.plot(time, np.full_like(time, theta_d1), '--', label=r'$\theta_1$ (desired)', color='r')
+plt.plot(time, theta2_vals, label=r'$\theta_2$ (actual)', color='g')
+plt.plot(time, np.full_like(time, theta_d2), '--', label=r'$\theta_2$ (desired)', color='orange')
+plt.title('Joint Angles Over Time')
+plt.xlabel('Time [s]')
+plt.ylabel('Angle [rad]')
+plt.legend()
+plt.grid(True)
+
+
+# Compute sliding surfaces over time
+S1_vals = np.gradient(theta1_vals) + lambda1 * (theta1_vals - theta_d1)
+S2_vals = np.gradient(theta2_vals) + lambda2 * (theta2_vals - theta_d2)
+
+# Compute Lyapunov function V over time
+V_vals = 0.5 * (S1_vals**2 + S2_vals**2)
+
+# Plot Lyapunov function
+plt.figure(figsize=(8, 6))
+plt.plot(time, V_vals, label='Lyapunov Function $V(t)$', color='purple')
+plt.title('Lyapunov Function Over Time')
+plt.xlabel('Time [s]')
+plt.ylabel('Lyapunov Function $V$')
+plt.grid(True)
+plt.legend()
+
+
+
+
+# Show the plot
 plt.tight_layout()
 plt.show()
