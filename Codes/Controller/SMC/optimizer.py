@@ -1,52 +1,13 @@
 import numpy as np
 import random
+from dynamic import *
+from controller import *
 
-# Dynamics function (from dynamic.py)
-def dynamics(theta, theta_dot, tau):
-    m1, m2 = 1.0, 1.0
-    l1, l2 = 1.0, 1.0
-    g = 9.81
-    
-    A1 = (m1 + m2) * l1**2
-    A2 = m2 * l1 * l2 * np.cos(theta[0] - theta[1])
-    A3 = m2 * l1 * l2 * np.sin(theta[0] - theta[1])
-    A4 = (m1 + m2) * g * l1 * np.sin(theta[0])
-    A1_prime = m2 * l2**2
-    A4_prime = m2 * g * l2 * np.sin(theta[1])
-
-    M = np.array([[A1, A2], [A2, A1_prime]])
-    C = np.array([[0, A3 * theta_dot[1]], [-A3 * theta_dot[0], 0]])
-    G = np.array([A4, A4_prime])
-
-    theta_ddot = np.linalg.inv(M) @ (tau - C @ theta_dot - G)
-    return theta_ddot
-
-# Sliding mode control function (from controller.py)
-def sliding_mode_control(theta, theta_dot, theta_d, lambda1, lambda2, K1, K2, m1, m2, l1, l2):
-    # Tracking errors
-    e = theta - theta_d
-    e_dot = theta_dot
-
-    # Sliding surfaces
-    S1 = e_dot[0] + lambda1 * e[0]
-    S2 = e_dot[1] + lambda2 * e[1]
-
-    # Inertia matrix M
-    A1 = (m1 + m2) * l1**2
-    A2 = m2 * l1 * l2 * np.cos(theta[0] - theta[1])
-    A1_prime = m2 * l2**2
-    M = np.array([[A1, A2], [A2, A1_prime]])
-
-    # Control law
-    tau1 = M[0, 0] * (0 - lambda1 * e_dot[0]) - K1 * np.sign(S1)
-    tau2 = M[1, 1] * (0 - lambda2 * e_dot[1]) - K2 * np.sign(S2)
-
-    return np.array([tau1, tau2]), S1, S2
 
 # Genetic Algorithm parameters
 population_size = 20
 generations = 50
-mutation_rate = 0.1
+mutation_rate = 0.05
 lambda_bounds = (10, 100)
 K_bounds = (10, 100)
 
