@@ -16,26 +16,3 @@ Force feedback robots also find applications in virtual reality (VR) and augment
 https://github.com/user-attachments/assets/ee541548-3434-4398-8c85-c36fef1b4215
 
 
-
-## Components
-
-1. Arduino Microcontroller(at least UNO)
-2. Robotic Arm
-3. [FSR sensors](https://www.amazon.com/Flexible-Resistors-Pressure-Compatible-microbit/dp/B08P8ZJ6KM/ref=sr_1_1?crid=1KHRGL5X0TVUJ&dib=eyJ2IjoiMSJ9.6ybxotGsCsxp8FxyL5e5-40k5xDhuIzEDWVSpX-RSSDTAhnEXbHKPzovYV4UPcNU.T0v7rWu6mG02m5Ld_45DwqRqr3NR29PGl4i74sZyq6I&dib_tag=se&keywords=fsr+sensor&qid=1725211210&sprefix=fsr+s%2Caps%2C293&sr=8-1) * 4 
-4. [Servo motors](https://www.amazon.com/Miuzei-MG996R-Torque-Digital-Helicopter/dp/B0BZ4N367M/ref=sr_1_5?crid=2OBDSKIVTXU6K&dib=eyJ2IjoiMSJ9.H04An3S3wm6x0RUDr0virMG0F48JmxJ_VtqrtIOAsGeqnuu6cPx_y3PoNgJ_Ezi6hsyCx0FAtQsj8KclB8OGepWVMpm2Ccwt6W0h989P8edXsWwEV1FmIsJNuQJkNixAmdXfdX9KdMLkEdHTpHbjLr4SIgfBKxdYFqtgrz36zG6EwJJYtbA_2XOvbnJk3pJA3XtG_tl6V2P1ly1SLz_7ZXFMRTzIhQ9dnxF5MKxOvq4uSWGbVwhhk1o4BgOoWmhoLYnENefF07YaAeregMY_OtS7h7u9ZzuQsU9zRhYBSks.QJKESjWMaRz0y9q5GZ-b9r17GlAZdHDq7ojQVwXi5pw&dib_tag=se&keywords=servo%2Bmotor&qid=1725211297&sprefix=serv%2Caps%2C273&sr=8-5&th=1) * 6
-
-
-
-## Setup Instructions:
-
-1. **Hardware Setup:**
-   - Please connect the robotic arm components (motors, grippers, etc.) to the Arduino board according to the circuit diagram provided in the documentation.
-   - Ensure proper calibration and connection of the dynamometer sensor within the smart glove.
-
-2. **Software Installation:**
-   - Clone or download the repository from GitHub to your local machine.
-   - Upload the Arduino sketch provided in the 'src' directory to the Arduino board using the Arduino IDE.
-
-3. **Configuration:**
-   - Adjust any parameters or constants in the Arduino sketch according to your specific hardware setup.
-   - Calibrate the force feedback algorithm based on the dynamometer sensor readings to achieve the desired performance.
