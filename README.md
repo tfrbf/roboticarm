@@ -1,8 +1,7 @@
 # Robotic Arm with Force Feedback Control
 
-[link](https://drive.google.com/file/d/1EH_-EbajI4hgCQzlfZ6WclsePkbphGsR/view?usp=drivesdk)
 
-## Project Overview
+## Overview
 
 This repository contains the code and documentation for a robotic arm with force feedback control, developed as an undergraduate thesis project at [University of Tabriz](https://tabrizu.ac.ir/en), Faculty of Electrical and Computer Engineering under the supervision of [Dr.Badamchizadeh](https://scholar.google.com/citations?user=edtNtXAAAAAJ&hl=en). The project utilizes an Arduino microcontroller and a smart glove equipped with an FSR sensor to enable the robotic arm to apply force similar to a human hand.
 ### Applications 
