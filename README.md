@@ -1,4 +1,4 @@
-# Robotic Arm with Force Feedback Control
+# Robotic Arm 
 
 
 ## Overview
